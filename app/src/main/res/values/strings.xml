@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">KinoBilet</string>
+    <string name="premiere">В кино</string>
+    <string name="favourites">Избранное</string>
+    <string name="profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

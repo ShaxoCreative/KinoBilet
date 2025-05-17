@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "578947921005",
+    "project_id": "kinobilet-8f396",
+    "storage_bucket": "kinobilet-8f396.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578947921005:android:3249a5bde74ae9df1bfb64",
+        "android_client_info": {
+          "package_name": "com.example.kinobilet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1R4vKJ1GYfAELMTMsNicMWlYfEJx5Rj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

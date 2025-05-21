@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:layout_marginBottom="12dp">
+
+    <ImageView
+        android:id="@+id/film_poster"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/film_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Название фильма"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/film_genre_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Жанр • Страна"
+        android:textSize="14sp"
+        android:textColor="#666" />
+
+    <TextView
+        android:id="@+id/film_cinema_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кинотеатров: 10"
+        android:textSize="14sp"
+        android:textColor="#666" />
+</LinearLayout>

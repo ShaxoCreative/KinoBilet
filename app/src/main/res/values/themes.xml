@@ -1,9 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.KinoBilet" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="colorPrimary">@color/prime</item>
     </style>
-
+    <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@color/bottom_menu_color</item>
+        <item name="itemIconTint">@color/bottom_menu_color</item>
+        <item name="itemPaddingTop">4dp</item>
+        <item name="itemPaddingBottom">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="itemMinHeight">64dp</item>
+    </style>
     <style name="Theme.KinoBilet" parent="Base.Theme.KinoBilet" />
+
 </resources>

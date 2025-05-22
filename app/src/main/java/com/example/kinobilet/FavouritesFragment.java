@@ -51,17 +51,37 @@ public class FavouritesFragment extends Fragment {
 
     private void loadFavourites() {
         String uid = auth.getUid();
+        if (uid == null) return;
+
         db.collection("users").document(uid).collection("favourites")
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     filmList.clear();
-                    for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                    List<DocumentSnapshot> docs = snapshot.getDocuments();
+                    if (docs.isEmpty()) {
+                        adapter.notifyDataSetChanged();
+                        return;
+                    }
+
+                    final int[] loaded = {0};
+                    for (DocumentSnapshot doc : docs) {
                         String filmId = doc.getId();
+
                         db.collection("films").document(filmId).get()
                                 .addOnSuccessListener(filmDoc -> {
                                     if (filmDoc.exists()) {
                                         Film film = filmDoc.toObject(Film.class);
+                                        film.setId(filmDoc.getId());
                                         filmList.add(film);
+                                    }
+                                    loaded[0]++;
+                                    if (loaded[0] == docs.size()) {
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    loaded[0]++;
+                                    if (loaded[0] == docs.size()) {
                                         adapter.notifyDataSetChanged();
                                     }
                                 });

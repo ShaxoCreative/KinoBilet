@@ -3,11 +3,13 @@ package com.example.kinobilet;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -17,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class FilmDetailsFragment extends Fragment {
 
@@ -66,7 +69,7 @@ public class FilmDetailsFragment extends Fragment {
     private void checkIfFavourite() {
         db.collection("users").document(auth.getUid())
                 .collection("favourites")
-                .document(film.getTitle())
+                .document(film.getId())
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     isFavourite = snapshot.exists();
@@ -77,7 +80,7 @@ public class FilmDetailsFragment extends Fragment {
     private void toggleFavourite() {
         DocumentReference favRef = db.collection("users").document(auth.getUid())
                 .collection("favourites")
-                .document(film.getTitle());
+                .document(film.getId());
 
         if (isFavourite) {
             favRef.delete();

@@ -3,7 +3,7 @@ package com.example.kinobilet;
 import java.io.Serializable;
 
 public class Film implements Serializable {
-    private String title, posterUrl, genre, country, description;
+    private String title, posterUrl, genre, country, description, id;
     private int cinemaCount;
 
     public Film() {}
@@ -30,5 +30,13 @@ public class Film implements Serializable {
 
     public int getCinemaCount() {
         return cinemaCount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

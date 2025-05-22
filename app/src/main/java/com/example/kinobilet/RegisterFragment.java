@@ -48,6 +48,11 @@ public class RegisterFragment extends Fragment {
             return;
         }
 
+        if (password.length() < 6) {
+            errorMessage.setText("Пароль должен быть не менее 6 символов.");
+            return;
+        }
+
         if (!password.equals(confirmPassword)) {
             errorMessage.setText("Пароль повторно введен неверно. Попробуйте ввести пароль заново.");
             return;

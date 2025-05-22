@@ -52,6 +52,7 @@ public class PremiereFragment extends Fragment {
                     filmList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         Film film = doc.toObject(Film.class);
+                        film.setId(doc.getId());
                         filmList.add(film);
                     }
                     adapter.notifyDataSetChanged();

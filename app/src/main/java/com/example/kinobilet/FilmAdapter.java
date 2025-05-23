@@ -40,7 +40,6 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         Film film = filmList.get(position);
         holder.title.setText(film.getTitle());
         holder.genreCountry.setText(film.getGenre() + " • " + film.getCountry());
-        holder.cinemaCount.setText("Кинотеатров: " + film.getCinemaCount());
 
         Glide.with(context)
                 .load(film.getPosterUrl())
@@ -63,7 +62,6 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             poster = view.findViewById(R.id.film_poster);
             title = view.findViewById(R.id.film_title);
             genreCountry = view.findViewById(R.id.film_genre_country);
-            cinemaCount = view.findViewById(R.id.film_cinema_count);
         }
     }
 }

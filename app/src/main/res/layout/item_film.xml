@@ -31,11 +31,4 @@
         android:textSize="14sp"
         android:textColor="#666" />
 
-    <TextView
-        android:id="@+id/film_cinema_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Кинотеатров: 10"
-        android:textSize="14sp"
-        android:textColor="#666" />
 </LinearLayout>

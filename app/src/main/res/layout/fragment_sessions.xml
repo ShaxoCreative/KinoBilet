@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Сегодня"
+        android:textAlignment="center"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="8dp">
+
+        <Button
+            android:id="@+id/btn_prev_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="Назад" />
+
+        <Button
+            android:id="@+id/btn_next_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="Вперед" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_no_sessions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сеансов нет"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:layout_marginTop="20dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_sessions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

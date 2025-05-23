@@ -1,15 +1,15 @@
 package com.example.kinobilet;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -17,9 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashMap;
 
 public class FilmDetailsFragment extends Fragment {
 
@@ -29,6 +27,7 @@ public class FilmDetailsFragment extends Fragment {
     private ImageView poster, favouriteIcon;
     private TextView title, genreCountry, description;
     private boolean isFavourite = false;
+    Button buyTicketButton;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
 
@@ -53,6 +52,7 @@ public class FilmDetailsFragment extends Fragment {
         title = view.findViewById(R.id.details_title);
         genreCountry = view.findViewById(R.id.details_genre_country);
         description = view.findViewById(R.id.details_description);
+        buyTicketButton = view.findViewById(R.id.buy_ticket_button);
 
         title.setText(film.getTitle());
         genreCountry.setText(film.getGenre() + " • " + film.getCountry());
@@ -60,6 +60,12 @@ public class FilmDetailsFragment extends Fragment {
         Glide.with(requireContext()).load(film.getPosterUrl()).into(poster);
 
         checkIfFavourite();
+
+        buyTicketButton.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), PurchaseActivity.class);
+            intent.putExtra(PurchaseActivity.EXTRA_FILM_ID, film.getId());
+            startActivity(intent);
+        });
 
         favouriteIcon.setOnClickListener(v -> toggleFavourite());
 

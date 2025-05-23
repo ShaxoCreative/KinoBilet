@@ -64,6 +64,7 @@ public class FilmDetailsFragment extends Fragment {
         buyTicketButton.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), PurchaseActivity.class);
             intent.putExtra(PurchaseActivity.EXTRA_FILM_ID, film.getId());
+            intent.putExtra(PurchaseActivity.EXTRA_FILM_TITLE, film.getTitle());
             startActivity(intent);
         });
 

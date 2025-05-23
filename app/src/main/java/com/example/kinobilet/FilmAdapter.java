@@ -55,7 +55,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
     static class FilmViewHolder extends RecyclerView.ViewHolder {
         ImageView poster;
-        TextView title, genreCountry, cinemaCount;
+        TextView title, genreCountry;
 
         FilmViewHolder(View view) {
             super(view);

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -23,8 +22,10 @@ import java.util.*;
 public class SessionsFragment extends Fragment {
 
     private static final String ARG_FILM_ID = "film_id";
+    private static final String ARG_FILM_TITLE = "film_title";
 
     private String filmId;
+    private String filmTitle;
     private RecyclerView recyclerView;
     private SessionAdapter adapter;
     private TextView textDate;
@@ -33,10 +34,13 @@ public class SessionsFragment extends Fragment {
 
     private int dayOffset = 0;
 
-    public static SessionsFragment newInstance(String filmId) {
+    private String dayOfWeek;
+
+    public static SessionsFragment newInstance(String filmId, String filmTitle) {
         SessionsFragment fragment = new SessionsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_FILM_ID, filmId);
+        args.putString(ARG_FILM_TITLE, filmTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,6 +59,7 @@ public class SessionsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         filmId = getArguments().getString(ARG_FILM_ID);
+        filmTitle = getArguments().getString(ARG_FILM_TITLE);
 
         recyclerView = view.findViewById(R.id.recycler_sessions);
         textDate = view.findViewById(R.id.text_date);
@@ -63,7 +68,24 @@ public class SessionsFragment extends Fragment {
         btnNextDay = view.findViewById(R.id.btn_next_day);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new SessionAdapter(new ArrayList<>(), session -> {});
+        adapter = new SessionAdapter(new ArrayList<>(), session -> {
+            Fragment seatsFragment = SeatsFragment.newInstance(
+                    dayOfWeek,
+                    session.getId(),
+                    filmId,
+                    filmTitle,
+                    textDate.getText().toString(),
+                    session.getTime(),
+                    session.getPrice(),
+                    session.getBanned()
+            );
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, seatsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         recyclerView.setAdapter(adapter);
 
         updateDayButtons();
@@ -143,7 +165,8 @@ public class SessionsFragment extends Fragment {
     private void loadSessions() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, dayOffset);
-        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.getTime()).toLowerCase();
+        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.getTime()).toLowerCase();
+        updateDayOfWeek(day);
 
         FirebaseFirestore.getInstance()
                 .collection("weekly_schedule")
@@ -157,8 +180,12 @@ public class SessionsFragment extends Fragment {
                         if (filmId.equals(film)) {
                             String time = doc.getString("time");
                             Long priceLong = doc.getLong("price");
+                            List<String> banned = (List<String>) doc.get("banned");
                             int price = priceLong != null ? priceLong.intValue() : 0;
-                            filteredSessions.add(new Session(time, price));
+                            Session session = new Session(time, price);
+                            session.setId(doc.getId());
+                            session.setBanned(banned);
+                            filteredSessions.add(session);
                         }
                     }
 
@@ -173,6 +200,10 @@ public class SessionsFragment extends Fragment {
                 .addOnFailureListener(e -> {
                     showEmpty();
                 });
+    }
+
+    private void updateDayOfWeek(String day) {
+        dayOfWeek = day;
     }
 
     private void showEmpty() {

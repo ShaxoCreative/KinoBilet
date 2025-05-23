@@ -53,7 +53,7 @@ public class TicketsFragment extends Fragment {
                     ticketList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         Ticket ticket = doc.toObject(Ticket.class);
-                        ticket.setId(doc.getId()); // optional
+                        ticket.setId(doc.getId());
                         ticketList.add(ticket);
                     }
                     adapter.notifyDataSetChanged();

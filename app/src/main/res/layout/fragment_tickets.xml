@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:paddingTop="16dp" >
 
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Билеты"
+        android:textAlignment="center"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_tickets"
         android:layout_width="match_parent"

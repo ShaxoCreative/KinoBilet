@@ -17,7 +17,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
 
 public class SessionsFragment extends Fragment {
 
@@ -179,13 +183,28 @@ public class SessionsFragment extends Fragment {
                         String film = doc.getString("filmId");
                         if (filmId.equals(film)) {
                             String time = doc.getString("time");
-                            Long priceLong = doc.getLong("price");
-                            List<String> banned = (List<String>) doc.get("banned");
-                            int price = priceLong != null ? priceLong.intValue() : 0;
-                            Session session = new Session(time, price);
-                            session.setId(doc.getId());
-                            session.setBanned(banned);
-                            filteredSessions.add(session);
+                            int timeHour = Integer.parseInt(time.split(":")[0]);
+                            int currentHour = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).getHour();
+                            String currentDay = (ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH))).toLowerCase();
+                            if (currentDay.equals(dayOfWeek)) {
+                                if (currentHour < timeHour) {
+                                    Long priceLong = doc.getLong("price");
+                                    List<String> banned = (List<String>) doc.get("banned");
+                                    int price = priceLong != null ? priceLong.intValue() : 0;
+                                    Session session = new Session(time, price);
+                                    session.setId(doc.getId());
+                                    session.setBanned(banned);
+                                    filteredSessions.add(session);
+                                }
+                            } else {
+                                Long priceLong = doc.getLong("price");
+                                List<String> banned = (List<String>) doc.get("banned");
+                                int price = priceLong != null ? priceLong.intValue() : 0;
+                                Session session = new Session(time, price);
+                                session.setId(doc.getId());
+                                session.setBanned(banned);
+                                filteredSessions.add(session);
+                            }
                         }
                     }
 
